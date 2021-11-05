@@ -1,7 +1,7 @@
 import TRSRenderObject from "./render_object";
 
 export default class TRSRenderCollection extends TRSRenderObject {
-    private readonly objects: TRSRenderObject[];
+    private objects: TRSRenderObject[];
 
     /** Construct */
     public constructor(name: string, ...objects: TRSRenderObject[]) {
@@ -19,7 +19,9 @@ export default class TRSRenderCollection extends TRSRenderObject {
     /** Paint event */
     public onPaint(ctx: CanvasRenderingContext2D, dt: number): void {
         for (const obj of this.objects) {
-            obj.onPaint(ctx, dt);
+            if (obj.visiblity()) {
+                obj.onPaint(ctx, dt);
+            }
         }
     }
 
@@ -36,5 +38,16 @@ export default class TRSRenderCollection extends TRSRenderObject {
             if (obj.matchName(name)) return obj;
         }
         return null;
+    }
+
+    /** Add object */
+    public add(object: TRSRenderObject): void {
+        this.objects.push(object);
+        object.onConstruct();
+    }
+
+    /** Remove object by name */
+    public removeByName(name: string): void {
+        this.objects = this.objects.filter((i) => !i.matchName(name));
     }
 }
