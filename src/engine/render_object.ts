@@ -12,7 +12,9 @@ export default class TRSRenderObject {
     public onConstruct(): void {}
 
     /** Paint event */
-    public onPaint(ctx: CanvasRenderingContext2D, dt: number): void {}
+    public onPaint(ctx: CanvasRenderingContext2D, dt: number): void {
+        console.log(`Current fill color: ${ctx.fillStyle}. Delta: ${dt}`);
+    }
 
     /** Destruct event */
     public onDestruct(): void {}
