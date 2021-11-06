@@ -1,10 +1,11 @@
 import TRSRenderer from './engine/renderer';
-import TRSRenderCollection from './engine/render_collection';
+import TRSRenderCollection from './engine/render_objects/render_collection';
 import TRSImageObject from './engine/render_objects/image';
 import TRSUIHBox from './engine/ui/ui_h_box';
 import TRSUIRoundedRect from './engine/ui/ui_rounded_rect';
 import TRSUIVBox from './engine/ui/ui_v_box';
 import './style.css'
+import TRSKeyboard from './engine/keyboard';
 
 // Get app block
 const app = document.querySelector<HTMLDivElement>('#app')!;
@@ -50,7 +51,10 @@ const img = new TRSImageObject('test img', 'https://picsum.photos/800/600', {
 // Start renderer
 renderer.scene(new TRSRenderCollection(
   'main scene',
-  vbox,
   img
+));
+renderer.ui(new TRSRenderCollection(
+  'interface scene',
+  vbox
 ));
 renderer.start();
