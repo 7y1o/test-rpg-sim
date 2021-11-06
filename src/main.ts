@@ -1,5 +1,6 @@
 import TRSRenderer from './engine/renderer';
 import TRSRenderCollection from './engine/render_collection';
+import TRSImageObject from './engine/render_objects/image';
 import TRSUIHBox from './engine/ui/ui_h_box';
 import TRSUIRoundedRect from './engine/ui/ui_rounded_rect';
 import TRSUIVBox from './engine/ui/ui_v_box';
@@ -38,8 +39,18 @@ vbox.addChild(hbox);
 vbox.addChild(hbox);
 vbox.addChild(hbox);
 
+// Image
+const img = new TRSImageObject('test img', 'https://picsum.photos/800/600', {
+  width: 800,
+  height: 600,
+  x: 16,
+  y: 256
+});
+
+// Start renderer
 renderer.scene(new TRSRenderCollection(
   'main scene',
-  vbox
+  vbox,
+  img
 ));
 renderer.start();
