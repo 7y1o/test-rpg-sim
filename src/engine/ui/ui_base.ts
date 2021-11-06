@@ -29,8 +29,8 @@ export default class TRSUIBase extends TRSRenderObject {
         ctx.font = '16px sans-serif';
         ctx.fillText(
             text,
-            16 + ((this._width - 32) / 2) - (ctx.measureText(text).width / 2),
-            16 + ((this._width - 32) / 2) - 8,
+            this._x + 16,
+            16 + ((this._y + (this._height / 2)) - 8),
             this._width - 32
         );
     }
@@ -45,6 +45,12 @@ export default class TRSUIBase extends TRSRenderObject {
     public set colors({ fg, bg }: {fg?: string, bg?: string}) {
         this._fg = fg ?? this._fg;
         this._bg = bg ?? this._bg;
+    }
+
+    /** Position setter */
+    public set position({ x, y }: {x?: number, y?: number}) {
+        this._x = x ?? this._x;
+        this._y = y ?? this._y;
     }
 
     /** Get width */
