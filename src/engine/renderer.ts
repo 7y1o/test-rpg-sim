@@ -6,6 +6,7 @@ export default class TRSRenderer {
     private _scene: TRSRenderCollection | null;
     private _ui: TRSRenderCollection | null;
     private _running: boolean;
+    private tickFns: ((dt: number) => void)[]
 
     /** Init renderer */
     public constructor(canvas: HTMLCanvasElement) {
@@ -14,6 +15,7 @@ export default class TRSRenderer {
         this._scene = null;
         this._ui = null;
         this._running = false;
+        this.tickFns = [];
 
         // Adjust size
         this.canvas.width = this.canvas.clientWidth;
@@ -50,7 +52,7 @@ export default class TRSRenderer {
     /** Render step */
     public tick(dt: number): void {
         if (!this._scene && !this._ui) return;
-        
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         if (this._scene) this._scene.onPaint(this.ctx, dt);
@@ -66,6 +68,10 @@ export default class TRSRenderer {
 
         this.running(true);
         const timeToTick = () => {
+            for (const tickFn of this.tickFns) {
+                tickFn(currentTime - lastTime);
+            }
+
             this.tick(currentTime - lastTime);
             lastTime = currentTime;
             currentTime = Date.now();
@@ -81,5 +87,10 @@ export default class TRSRenderer {
     /** Stop loop */
     public stop() {
         this.running(false);
+    }
+
+    /** Add tick function */
+    public addTickStep(fn: (dt: number) => void): void {
+        this.tickFns.push(fn);
     }
 }
