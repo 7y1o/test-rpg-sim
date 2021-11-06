@@ -1,4 +1,4 @@
-import TRSRenderObject from "../render_object";
+import TRSRenderObject from "../render_objects/render_object";
 
 export default class TRSUIBase extends TRSRenderObject {
     protected _width: number;

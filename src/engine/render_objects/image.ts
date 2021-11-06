@@ -1,4 +1,4 @@
-import TRSRenderObject from "../render_object";
+import TRSRenderObject from "./render_object";
 
 export default class TRSImageObject extends TRSRenderObject {
     protected img: HTMLImageElement;

@@ -1,4 +1,4 @@
-import TRSRenderCollection from "./render_collection";
+import TRSRenderCollection from "./render_objects/render_collection";
 
 export default class TRSRenderer {
     private readonly canvas: HTMLCanvasElement;
